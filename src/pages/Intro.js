@@ -2,6 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 export default class Intro extends React.Component {
+  static navigationOptions = ({}) => {
+    return {
+      headerStyle: {
+        backgroundColor: '#F7EDDF',
+        borderBottomWidth: 0,
+      },
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -24,6 +32,6 @@ const styles = StyleSheet.create({
   header: {
     color: '#464646',
     fontSize: 35,
-    marginBottom: 50,
+    marginBottom: 20,
   },
 });
