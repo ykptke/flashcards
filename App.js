@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import Intro from './src/pages/Intro';
@@ -23,15 +24,13 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Intro',
-    navigationOptions: {
-      headerStyle: {
-        display: 'none',
-      },
-    },
   }
 );
 
 export default class App extends React.Component {
+  componentDidMount() {
+    StatusBar.setHidden(true);
+  }
   render() {
     return <RootStack />;
   }
