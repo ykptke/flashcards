@@ -37,7 +37,7 @@ export default class Play extends React.Component {
         marginLeft: 10,
       },
       headerLeft: (
-        <TouchableOpacity onPress={() => navigation.navigate('Intro')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require("../../assets/images/go_back.png")}/>
         </TouchableOpacity>
       ),
