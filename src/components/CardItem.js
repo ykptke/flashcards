@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 const CardItem = ({ card, onPressEdit, onPressDelete }) => (
-  <View style={styles.container}>
-    <Text style={styles.text}>{card.key}</Text>
+  <View style={styles.container} >
+    <Text style={styles.text}>{card.question}</Text>
     <View style={styles.buttons}>
       <TouchableOpacity style={styles.editButton} onPress={() => onPressEdit()}>
         <Image source={require("../../assets/images/edit.png")}/>

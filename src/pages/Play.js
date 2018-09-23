@@ -1,22 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback, Animated } from 'react-native';
+import { connect } from 'react-redux';
+import { getAllCards } from '../actions';
 
-const cards = [
-  {
-    question: "school",
-    answer: "okul",
-  },
-  {
-    question: "table",
-    answer: "masa",
-  },
-  {
-    question: "student",
-    answer: "öğrenci",
-  },
-];
-
-export default class Play extends React.Component {
+class Play extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -49,13 +36,17 @@ export default class Play extends React.Component {
     };
   };
 
+  componentDidMount() {
+    this.props.dispatch(getAllCards());
+  }
+
   changeCard(num) {
     this.setState((state) => {
       const sum = state.cardIndex + num;
       return {
-        cardIndex: (sum < 0) || (sum >= cards.length) ? 0 : sum,
-      }
-    })
+        cardIndex: (sum < 0) || (sum >= this.props.cards.length) ? 0 : sum,
+      };
+    });
   }
 
   onPressedIn() {
@@ -83,6 +74,19 @@ export default class Play extends React.Component {
         outputRange: ['0deg', '360deg'],
       })
     }];
+    const { cards } = this.props;
+
+    if (cards.length === 0) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.noCard}>
+            <Text style={styles.text}>
+              Henüz bir kart yok!
+            </Text>
+          </View>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -94,8 +98,8 @@ export default class Play extends React.Component {
             <Text style={styles.text}>
               {
                 this.state.isFlipped
-                ? cards[this.state.cardIndex].answer
-                : cards[this.state.cardIndex].question
+                  ? cards[this.state.cardIndex].answer
+                  : cards[this.state.cardIndex].question
               }
             </Text>
           </Animated.View>
@@ -130,5 +134,19 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
-  }
+  },
+  noCard: {
+    paddingLeft: 20,
+  },
 });
+
+function mapStateToProps(state) {
+  const { cards, isFetching } = state;
+
+  return {
+    cards,
+    isFetching,
+  };
+}
+
+export default connect(mapStateToProps)(Play);
